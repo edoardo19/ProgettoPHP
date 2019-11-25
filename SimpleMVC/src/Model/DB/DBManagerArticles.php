@@ -12,10 +12,14 @@ class DBManagerArticles
         $this->pdo = $pdo;
     }
 
-    public function GetAllArticles(): array
+    public function GetDailyArticles(): array
     {
-        $sql = 'SELECT * FROM articles ORDER BY DATEOFSUBMIT';
+        $thisDate = date("Y-m-d H:i:s");
+        $newDate = $thisDate->strtotime('-1 day', strtotime($thisDate));
+
+        $sql = 'SELECT * FROM articles WHERE DATEOFSUBMIT > :NewDate ORDER BY DATEOFSUBMIT';
         $sth = $this->pdo->prepare($sql);
+        $sth->execute([':NewDate' => $newDate]);
         $sth->execute();
         return $sth->fetchAll();
     }
