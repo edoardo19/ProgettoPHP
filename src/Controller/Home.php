@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace SimpleMVC\Controller;
 
-use DBManagerArticles;
+use SimpleMVC\Model\DB\DBManagerArticles;
 use League\Plates\Engine;
 use Psr\Http\Message\ServerRequestInterface;
 

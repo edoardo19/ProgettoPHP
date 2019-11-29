@@ -1,5 +1,5 @@
-<h2><?= $this->e($article->Title) ?></h2>
+<h2><?= $this->e($article->TITLE) ?></h2>
 
 <h3><?= $this->e($article->ContentPreview()) ?></h3>
-<h4><?= $this->e($article->Data) ?></h4>
-<h4><?= $this->e($article->Author) ?></h4>
+<h4><?= $this->e($article->DATEOFSUBMIT) ?></h4>
+<h4><?= $this->e($article->IDAUTHOR) ?></h4>

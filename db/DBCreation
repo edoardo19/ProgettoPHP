@@ -16,4 +16,4 @@ CREATE TABLE articles(
    FOREIGN KEY (IDAUTHOR) REFERENCES users(ID)
 );
 
-
+insert into articles('IDAUTHOR', 'TITLE', 'CONTNENT', 'DATEOFSUBMIT') values([ID], [TITLE], [CONTNENT], [DATE]);

@@ -7,15 +7,15 @@ namespace SimpleMVC\Model;
 class Article
 {
     public $ID;
-    public $Title;
-    public $Content;
-    public $Author;
-    public $Data;
+    public $IDAUTHOR;
+    public $TITLE;
+    public $CONTNENT;
+    public $DATEOFSUBMIT;
 
     public function ContentPreview(): string{
-        if(sizeof($this->Content) <= 100)
-            return $this->Content . '...';
+        if(strlen($this->CONTNENT) <= 100)
+            return $this->CONTNENT . '...';
             
-        return substr($this->Content, 0, 100) . '...';
+        return substr($this->CONTNENT, 0, 100) . '...';
     }
 }

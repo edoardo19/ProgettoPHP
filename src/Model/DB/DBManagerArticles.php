@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleMVC\Model\DB;
 
+use PDO;
+use SimpleMVC\Model\Article;
+
 class DBManagerArticles
 {
     private $pdo;
@@ -16,13 +19,12 @@ class DBManagerArticles
     public function GetDailyArticles(): array
     {
         $thisDate = date("Y-m-d H:i:s");
-        $newDate = $thisDate->strtotime('-1 day', strtotime($thisDate));
+        $newDate = date("Y-m-d H:i:s", strtotime('-1 day', strtotime($thisDate)));
 
         $sql = 'SELECT * FROM articles WHERE DATEOFSUBMIT > :NewDate ORDER BY DATEOFSUBMIT';
         $sth = $this->pdo->prepare($sql);
         $sth->execute([':NewDate' => $newDate]);
-        $sth->execute();
-        return $sth->fetchAll();
+        return $sth->fetchAll(PDO::FETCH_CLASS, Article::class);
     }
 
     public function GetAllUserArticles($User): array
@@ -33,17 +35,16 @@ class DBManagerArticles
         return $sth->fetchAll();
     }
 
-    public function AddArticle($Article): void
+    public function AddArticle($Article, $userId): void
     {
-        $DBMU = new DBManagerUseres($this->pdo);
-        $userId = $DBMU->GetUserID($Article->Author);
-
         $sql = 'INSERT INTO articles(IDAUTHOR, TITLE, CONTNENT, DATEOFSUBMIT) VALUES (:IDAUTHOR, :TITLE, :CONTNENT, :DATEOFSUBMIT)';
         $sth = $this->pdo->prepare($sql);
-        $sth->execute([':IDAUTHOR' => $userId]);
-        $sth->execute([':TITLE' => $Article->Title]);
-        $sth->execute([':CONTNENT' => $Article->Contnent]);
-        $sth->execute([':DATEOFSUBMIT' => $Article->Data]);
+        $sth->execute([
+            ':IDAUTHOR' => $userId,
+            ':TITLE' => $Article->Title,
+            ':CONTNENT' => $Article->Contnent,
+            ':DATEOFSUBMIT' => $Article->Data
+        ]);
     }
 
     public function RemoveArticle($ArticleID): void
@@ -57,8 +58,10 @@ class DBManagerArticles
     {
         $sql = 'UPDATE article SET TITLE = :NewTitle, CONTNENT = :NewContnent WHERE ID = :ArticleID';
         $sth = $this->pdo->prepare($sql);
-        $sth->execute([':NewTitle' => $NewArticle->Title]);
-        $sth->execute([':NewContnent' => $NewArticle->Contnent]);
-        $sth->execute([':ArticleID' => $ArticleID]);
+        $sth->execute([
+            ':NewTitle' => $NewArticle->Title,
+            ':NewContnent' => $NewArticle->Contnent,
+            ':ArticleID' => $ArticleID
+        ]);
     }
 }
