@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
+namespace SimpleMVC\Model\DB;
 
 class DBManagerUseres
 {
     private $pdo;
 
-    function __construct($pdo)
+    function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
     }

@@ -1,5 +1,6 @@
-<?php //$this->layout('layout', ['title' => 'Home']) ?>
+<h1>Giornale</h1>
+<div><?php 
+foreach($articles as $a){
 
-<h1>Home page</h1>
-<p>Benvenuti nella home page del framework PHP <a href="">SimpleMVC</a></p>
-<p>SimpleMVC è un progetto didattico per insegnare le basi dell'architettura MVC</p>
+}
+?></div>
