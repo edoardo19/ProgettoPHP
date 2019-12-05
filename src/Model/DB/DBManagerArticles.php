@@ -27,12 +27,21 @@ class DBManagerArticles
         return $sth->fetchAll(PDO::FETCH_CLASS, Article::class);
     }
 
+    public function GetArticle($titleforurl): Article
+    {
+        $sql = 'SELECT * FROM articles WHERE TITLEFORURL = :t';
+        $sth = $this->pdo->prepare($sql);
+        $sth->execute([':t' => $titleforurl]);
+        $result = $sth->fetchAll(PDO::FETCH_CLASS, Article::class);
+        return $result[0];
+    }
+
     public function GetAllUserArticles($User): array
     {
         $sql = 'SELECT * FROM articles as a INNER JOIN users as u ON a.IDAUTHOR = u.ID WHERE u.NAME = :UserName ORDER BY DATEOFSUBMIT';
         $sth = $this->pdo->prepare($sql);
         $sth->execute([':UserName' => $User]);
-        return $sth->fetchAll();
+        return $sth->fetchAll(PDO::FETCH_CLASS, Article::class);
     }
 
     public function AddArticle($Article, $userId): void
