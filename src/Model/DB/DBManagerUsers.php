@@ -14,28 +14,16 @@ class DBManagerUseres
         $this->pdo = $pdo;
     }
 
-    public function IsValidUser($User): bool
-    {
-        $sql = 'SELECT USER FROM users WHERE name = :UserName';
-        $sth = $this->pdo->prepare($sql);
-        $sth->execute([':UserName' => $User]);
-        $result = $sth->fetchAll();
-
-        if(sizeof($result) != 0)
-            return true;
-
-        return false;
-    }
-
-    public function IsValidPassword($User, $Password): bool
+    public function IsValidLoginParameters($User, $Password): bool
     {
         $sql = 'SELECT * FROM users WHERE name = :UserName';
         $sth = $this->pdo->prepare($sql);
         $sth->execute([':UserName' => $User]);
         $result = $sth->fetchAll();
 
-        if(password_verify($Password, $result[2]))
-            return true;
+        if(!empty($result))
+            if(password_verify($Password, $result[2]))
+                return true;
 
         return false;
     }
