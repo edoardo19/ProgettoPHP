@@ -16,7 +16,7 @@ class DBManagerArticles
         $this->pdo = $pdo;
     }
 
-    public function GetDailyArticles(): array
+    public function GetDailyArticles()
     {
         $thisDate = date("Y-m-d H:i:s");
         $newDate = date("Y-m-d H:i:s", strtotime('-1 day', strtotime($thisDate)));
@@ -36,9 +36,9 @@ class DBManagerArticles
         return $result[0];
     }
 
-    public function GetAllUserArticles($User): array
+    public function GetAllUserArticles($User)
     {
-        $sql = 'SELECT * FROM articles as a INNER JOIN users as u ON a.IDAUTHOR = u.ID WHERE u.NAME = :UserName ORDER BY DATEOFSUBMIT';
+        $sql = 'SELECT a.* FROM articles as a INNER JOIN users as u ON a.IDAUTHOR = u.ID WHERE u.NAME = :UserName ORDER BY DATEOFSUBMIT';
         $sth = $this->pdo->prepare($sql);
         $sth->execute([':UserName' => $User]);
         return $sth->fetchAll(PDO::FETCH_CLASS, Article::class);
