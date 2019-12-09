@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace SimpleMVC\Controller;
 
 use SimpleMVC\Model\DB\DBManagerArticles;
+use SimpleMVC\Model\DB\DBManagerUseres;
+
 use League\Plates\Engine;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -11,15 +13,25 @@ class Editing implements ControllerInterface
 {
     protected $plates;
     protected $dbma;
+    protected $dbmu;
 
-    public function __construct(Engine $plates, DBManagerArticles $dbma)
+    public function __construct(Engine $plates, DBManagerArticles $dbma, DBManagerUseres $dbmu)
     {
         $this->plates = $plates;
         $this->dbma = $dbma;
+        $this->dbmu = $dbmu;
     }
 
     public function execute(ServerRequestInterface $request)
     {
-        echo $this->plates->render('prova');
+        if(isset($_POST['username']) && isset($_POST['password'])){
+            if($this->dbmu->IsValidLoginParameters($_POST['username'], $_POST['password'])){
+                echo $this->plates -> render('userArticlesView', [
+                    'userArticles' => $this->dbma->GetAllUserArticles('Leo')
+                ]);
+            }
+        }
+
+        echo $this->plates -> render('login');
     }
 }
