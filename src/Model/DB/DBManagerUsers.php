@@ -6,8 +6,8 @@ namespace SimpleMVC\Model\DB;
 
 use PDO;
 
-class DBManagerUseres
-{
+class DBManagerUsers{
+    
     private $pdo;
 
     function __construct(PDO $pdo)
@@ -23,7 +23,7 @@ class DBManagerUseres
         $result = $sth->fetchAll();
 
         if(!empty($result))
-            if(password_verify($Password, $result[2]))
+            if(password_verify($Password, $result[0]['PASSWORD']))
                 return true;
 
         return false;

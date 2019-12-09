@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace SimpleMVC\Controller;
 
 use SimpleMVC\Model\DB\DBManagerArticles;
-use SimpleMVC\Model\DB\DBManagerUseres;
+use SimpleMVC\Model\DB\DBManagerUsers;
 
 use League\Plates\Engine;
 use Psr\Http\Message\ServerRequestInterface;
@@ -15,7 +15,7 @@ class Editing implements ControllerInterface
     protected $dbma;
     protected $dbmu;
 
-    public function __construct(Engine $plates, DBManagerArticles $dbma, DBManagerUseres $dbmu)
+    public function __construct(Engine $plates, DBManagerArticles $dbma, DBManagerUsers $dbmu)
     {
         $this->plates = $plates;
         $this->dbma = $dbma;
@@ -31,7 +31,5 @@ class Editing implements ControllerInterface
                 ]);
             }
         }
-
-        echo $this->plates -> render('login');
     }
 }
