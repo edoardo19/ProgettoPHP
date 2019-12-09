@@ -1,8 +1,8 @@
 <h1>Giornale</h1>
-<button>Login</button>
+<a href="/Login"><button>Login</button></a>
 <div><?php 
 foreach($articles as $a) {
- $this->insert('articleTemplate', ['article'=> $a]);
+    $this->insert('articleTemplate', ['article'=> $a]);
 }
 ?></div>
 
