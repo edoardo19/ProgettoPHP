@@ -3,5 +3,6 @@ use SimpleMVC\Controller;
 
 return [
     'GET /' => Controller\Home::class, // "SimpleMVC\Controller\Home"
-    'GET /Article' => Controller\Article::class
+    'GET /Article' => Controller\Article::class,
+    'GET /ArticleEditing' => Controller\ArticleEditing::class
 ];
