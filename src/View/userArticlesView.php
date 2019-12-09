@@ -7,8 +7,3 @@ foreach($userArticles as $a) {
  $this->insert('articleTemplateForEditing', ['article'=> $a]);
 }?>
 <button>Log Out</button>
-
-<?php
-var_dump($u);
-var_dump($p);
-?>

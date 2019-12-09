@@ -20,12 +20,8 @@ class Article implements ControllerInterface
 
     public function execute(ServerRequestInterface $request)
     {
-        try {
-            echo $this->plates -> render('article', [
-                'article' => $this->dbma->GetArticle($_GET['title'])
-            ]);
-        } catch (\Throwable $th) {
-            echo $this->plates -> render('404');
-        } 
+        echo $this->plates -> render('article', [
+            'article' => $this->dbma->GetArticle($_GET['title'])
+        ]); 
     }
 }
