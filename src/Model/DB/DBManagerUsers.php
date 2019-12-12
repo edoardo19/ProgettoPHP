@@ -29,23 +29,23 @@ class DBManagerUsers{
         return false;
     }
 
-    public function GetUserID($User): int
+    public function GetUserID($User)
     {
-        $sql = 'SELECT ID FROM users WHERE NAME = :UserName';
+        $sql = 'SELECT ID FROM users WHERE NAME = ?';
         $sth = $this->pdo->prepare($sql);
-        $sth->execute([':UserName' => $User]);
+        $sth->execute([$User]);
         $result = $sth->fetchAll();
 
-        return $result[0];
+        return $result[0]['ID'];
     }
 
-    public function GetUsername($ID)
+    public function GetUsernameByTitle($title)
     {
-        $sql = 'SELECT NAME FROM users WHERE ID = :UserID';
+        $sql = 'SELECT u.NAME FROM users AS u INNER JOIN articles AS a ON a.IDAUTHOR = u.ID WHERE a.TITLEFORURL = ?';
         $sth = $this->pdo->prepare($sql);
-        $sth->execute([':UserID' => $ID]);
+        $sth->execute([$title]);
         $result = $sth->fetchAll();
 
-        return $result[0];
+        return $result[0]['NAME'];
     }
 }

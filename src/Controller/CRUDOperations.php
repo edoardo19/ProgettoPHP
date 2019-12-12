@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace SimpleMVC\Controller;
 
+session_start();
+
 use SimpleMVC\Model\DB\DBManagerArticles;
 use SimpleMVC\Model\DB\DBManagerUsers;
 use SimpleMVC\Model\Article;
@@ -25,6 +27,9 @@ class CRUDOperations implements ControllerInterface
 
     public function execute(ServerRequestInterface $request)
     {
+        if(!isset($_SESSION['username']))
+            header('Location: Login');
+
         switch ($_POST['operation']) {
             case 'Create new article':
                 echo $this->plates -> render('createNewArticle');
@@ -42,7 +47,7 @@ class CRUDOperations implements ControllerInterface
                 header('Location: Editing');
                 break;
             default:
-                header('Location: Editing');
+                header('Location: /');
                 break;
         }
     }
@@ -51,7 +56,7 @@ class CRUDOperations implements ControllerInterface
     {
         $article = new Article;
 
-        $article->IDAUTHOR = 1; //mettere poi id della persona in sessione
+        $article->IDAUTHOR = $this->GetUserName();
         $article->TITLE = $_POST['title'];
         $article->TITLEFORURL = $this->GetTitleForUrl($_POST['title']);
         $article->CONTNENT = $_POST['content'];
@@ -68,6 +73,11 @@ class CRUDOperations implements ControllerInterface
     private function DeleteArticle()
     {
         $this->dbma->RemoveArticle($_GET['id']);
+    }
+
+    private function GetUserName()
+    {
+        return $this->dbmu->GetUserID($_SESSION['username']);
     }
 
     private function GetTitleForUrl($title): string

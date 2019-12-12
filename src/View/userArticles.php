@@ -9,4 +9,4 @@
     $this->insert('articleTemplateForChoosing', ['articles'=> $userArticles]);
 ?>
 
-<button>Log Out</button>
+<a href="\Logout"><input type="button" value="Logout"></a>
