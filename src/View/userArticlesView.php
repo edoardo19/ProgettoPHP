@@ -3,7 +3,6 @@
 
 <button>New article</button>
 <div><?php 
-foreach($userArticles as $a) {
-    $this->insert('articleTemplateForEditing', ['article'=> $a]);
-}?>
+    $this->insert('articleTemplateForEditing', ['articles'=> $userArticles]);
+?>
 <button>Log Out</button>

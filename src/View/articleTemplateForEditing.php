@@ -1,3 +1,5 @@
+<?php foreach($articles as $article):?> 
+
 <h2><a href=<?="/Article?title=".$this->e($article->TITLEFORURL)?>> <?= $this->e($article->TITLE) ?> </a></h2>
 
 Title: <input type="text"  value=<?= $this->e($article->TITLE) ?>>
@@ -6,3 +8,5 @@ Date: <input type="text"  value=<?= $this->e($article->DATEOFSUBMIT) ?>>
 
 <button>delete</button>
 <button>update</button>
+
+<?php endforeach ?> 
