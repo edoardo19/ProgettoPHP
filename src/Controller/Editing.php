@@ -27,9 +27,12 @@ class Editing implements ControllerInterface
         if(isset($_POST['username']) && isset($_POST['password'])){
             if($this->dbmu->IsValidLoginParameters($_POST['username'], $_POST['password'])){
                 echo $this->plates -> render('userArticlesView', [
-                    'userArticles' => $this->dbma->GetAllUserArticles('Leo')
+                    'userArticles' => $this->dbma->GetAllUserArticles($_POST['username'])
                 ]);
+                return;
             }
         }
+
+        header('Location: Login');
     }
 }

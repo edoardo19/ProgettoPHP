@@ -38,7 +38,7 @@ class DBManagerArticles
 
     public function GetAllUserArticles($User)
     {
-        $sql = 'SELECT a.* FROM articles as a INNER JOIN users as u ON a.IDAUTHOR = u.ID WHERE u.NAME = :UserName ORDER BY DATEOFSUBMIT';
+        $sql = 'SELECT a.* FROM articles as a INNER JOIN users as u ON a.IDAUTHOR = u.ID WHERE u.NAME = :UserName ORDER BY DATEOFSUBMIT DESC';
         $sth = $this->pdo->prepare($sql);
         $sth->execute([':UserName' => $User]);
         return $sth->fetchAll(PDO::FETCH_CLASS, Article::class);
