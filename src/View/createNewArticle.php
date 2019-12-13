@@ -1,4 +1,7 @@
 <h1>Create your articles</h1>
+<?php if($warning): ?>
+    <p>Fill all the fields</p>
+<?php endif ?>
 <form action="/CRUDOperations" method="POST" name="edit">
     <p>Title:</p> 
     <input type="text" name="title"?><br>

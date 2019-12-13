@@ -32,9 +32,13 @@ class CRUDOperations implements ControllerInterface
 
         switch ($_POST['operation']) {
             case 'Create new article':
-                echo $this->plates -> render('createNewArticle');
+                echo $this->plates -> render('createNewArticle', ['warning' => false]);
                 break;
             case 'Create':
+                if($_POST['title'] == "" || $_POST['content'] == ""){
+                    echo $this->plates -> render('createNewArticle', ['warning' => true]);
+                    break;
+                }
                 $this->CreateArticle();
                 header('Location: Editing');
                 break;
@@ -47,7 +51,7 @@ class CRUDOperations implements ControllerInterface
                 header('Location: Editing');
                 break;
             default:
-                header('Location: /');
+                header('Location: Editing');
                 break;
         }
     }
@@ -84,6 +88,18 @@ class CRUDOperations implements ControllerInterface
     {
         $TitleForUrl = str_replace(' ', '-', $title);
         $TitleForUrl = strtolower($TitleForUrl);
-        return preg_replace('/[^a-z0-9\-]/', '', $TitleForUrl);
+        $TitleForUrl = preg_replace('/[^a-z0-9\-]/', '', $TitleForUrl);
+        return $TitleForUrl != "" ? $TitleForUrl : $this->GenerateRandomString();
+    }
+
+    private function GenerateRandomString($length = 20): string
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 }
