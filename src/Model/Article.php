@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace SimpleMVC\Model;
 
+use SimpleMVC\Model\DB\DBManagerUsers;
+
 class Article
 {
     public $ID;
