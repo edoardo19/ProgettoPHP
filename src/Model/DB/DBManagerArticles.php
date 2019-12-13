@@ -27,13 +27,13 @@ class DBManagerArticles
         return $sth->fetchAll(PDO::FETCH_CLASS, Article::class);
     }
 
-    public function GetArticle($newTitleForUrl): Article
+    public function GetArticle($titleForUrl)
     {
         $sql = 'SELECT * FROM articles WHERE TITLEFORURL = ?';
         $sth = $this->pdo->prepare($sql);
-        $sth->execute([$newTitleForUrl]);
+        $sth->execute([$titleForUrl]);
         $result = $sth->fetchAll(PDO::FETCH_CLASS, Article::class);
-        return $result[0];
+        return sizeof($result) > 0 ? $result[0] : $result;
     }
 
     public function GetAllUserArticles($user)

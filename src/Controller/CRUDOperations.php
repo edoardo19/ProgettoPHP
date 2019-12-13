@@ -62,11 +62,21 @@ class CRUDOperations implements ControllerInterface
 
         $article->IDAUTHOR = $this->GetUserName();
         $article->TITLE = $_POST['title'];
-        $article->TITLEFORURL = $this->GetTitleForUrl($_POST['title']);
         $article->CONTNENT = $_POST['content'];
         $article->DATEOFSUBMIT = date("Y-m-d H:i:s");
 
+        if($this->TitleConflict())
+            $article->TITLEFORURL = $this->GetTitleForUrl($_POST['title'])."-".$this->GenerateRandomString();
+        else
+            $article->TITLEFORURL = $this->GetTitleForUrl($_POST['title']);
+
         $this->dbma->AddArticle($article);
+    }
+
+    private function TitleConflict()
+    {
+        $res = $this->dbma->GetArticle($this->GetTitleForUrl($_POST['title']));
+        return sizeof($res) > 0;
     }
 
     private function UpdateArticle()
