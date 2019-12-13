@@ -14,7 +14,7 @@ class DBManagerUsers{
     {
         $this->pdo = $pdo;
     }
-
+    
     public function IsValidLoginParameters($User, $Password): bool
     {
         $sql = 'SELECT * FROM users WHERE NAME = :UserName';

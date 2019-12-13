@@ -1,0 +1,13 @@
+-git hub fetch:(modifiche in locale)
+
+{git remote add upstream https://github.com/GlobalBlackout/ProgettoPHP.git
+
+git remote -v}
+
+git fetch upstream
+
+git merge upstream/master
+
+-git hub push:(modifiche mio repository git)
+
+git push
