@@ -1,6 +1,6 @@
 <?php
-use SimpleMVC\Controller;
 
+use SimpleMVC\Controller;
 
 return [
     'GET /' => Controller\Home::class, // "SimpleMVC\Controller\Home"
@@ -10,5 +10,8 @@ return [
     'GET /Editing' => Controller\Editing::class,
     'GET /EditArticle' => Controller\EditArticle::class,
     'POST /CRUDOperations' => Controller\CRUDOperations::class,
-    'GET /Logout' => Controller\Logout::class
+    'GET /Logout' => Controller\Logout::class,
+    'GET /AdminManager' => Controller\AdminManager::class,
+    'POST /AdminManagerOperations' => Controller\AdminManagerOperations::class,
+    'GET /EditUser' => Controller\EditUser::class
 ];

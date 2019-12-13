@@ -24,6 +24,9 @@ class Editing implements ControllerInterface
 
     public function execute(ServerRequestInterface $request)
     {
+        if(!isset($_SESSION['username']))
+            header('Location: Login');
+
         echo $this->plates -> render('userArticles', [
             'userArticles' => $this->dbma->GetAllUserArticles($_SESSION['username'])
         ]);

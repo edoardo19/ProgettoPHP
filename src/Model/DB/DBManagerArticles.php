@@ -71,4 +71,10 @@ class DBManagerArticles
             $sth->execute([$newTitle,  $newTitleForUrl, $newContent, date("Y-m-d H:i:s"), $articleNameForUrl]);
         }
     }
+
+    public function DeleteAllArticleOfAUser($userID){
+        $sql = 'DELETE FROM articles WHERE IDAUTHOR = ?';
+        $sth = $this->pdo->prepare($sql);
+        $sth->execute([$userID]);
+    }
 }

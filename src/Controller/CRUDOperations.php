@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace SimpleMVC\Controller;
@@ -30,22 +31,38 @@ class CRUDOperations implements ControllerInterface
         if(!isset($_SESSION['username']))
             header('Location: Login');
 
-        switch ($_POST['operation']) {
+            switch ($_POST['operation']) {
+    /*================================== CREATE NEW USER ========================================*/ 
             case 'Create new article':
                 echo $this->plates -> render('createNewArticle', ['warning' => false]);
                 break;
+    /*================================== CREATE ========================================*/ 
             case 'Create':
-                if($_POST['title'] == "" || $_POST['content'] == ""){
-                    echo $this->plates -> render('createNewArticle', ['warning' => true]);
+                if($this->BadText($_POST['title']) || $this->BadText($_POST['content'])){
+                    echo $this->plates -> render('createNewArticle', [
+                        'warning' => true,
+                        'message' => 'Title or content is empty'
+                    ]);
                     break;
                 }
                 $this->CreateArticle();
                 header('Location: Editing');
                 break;
+    /*================================== UPDATE ========================================*/ 
             case 'Update':
+                
+                if($this->BadText($_POST['title']) || $this->BadText($_POST['content'])){
+                    echo $this->plates -> render('editArticle', [
+                        'warning' => true,
+                        'message' => 'Empty title or content'
+                        ]);
+                    break;
+                }
+                
                 $this->UpdateArticle();
                 header('Location: Editing');
                 break;
+    /*================================== DELETE ========================================*/
             case 'Delete':
                 $this->DeleteArticle();
                 header('Location: Editing');
@@ -111,5 +128,10 @@ class CRUDOperations implements ControllerInterface
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         return $randomString;
+    }
+
+    private function BadText($text): bool
+    {
+        return str_replace(" ", "", $text) == "" ? true : false;
     }
 }

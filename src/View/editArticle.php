@@ -1,4 +1,7 @@
 <h1>Edit your articles</h1>
+<?php if($warning): ?>
+    <p><?php echo($message) ?></p>
+<?php endif ?>
 <form action=<?="/CRUDOperations?title=".$this->e($article->TITLEFORURL).'&id='.$this->e($article->ID)?> method="POST" name="edit">
     <p>Title:</p>
     <input type="text" name="title" value="<?= $this->e($article->TITLE)?>" ><br>

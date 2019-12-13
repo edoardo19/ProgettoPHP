@@ -3,7 +3,8 @@ $ sqlite3 Juranl.db
 CREATE TABLE users(
     ID INTEGER PRIMARY KEY AUTOINCREMENT    NOT NULL,
     NAME           TEXT    NOT NULL,
-    PASSWORD       TEXT     NOT NULL
+    PASSWORD       TEXT    NOT NULL,
+    ROLE           TEXT    NOT NULL 
 );
 
 

@@ -1,7 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
 namespace SimpleMVC\Controller;
+
+session_start();
 
 use SimpleMVC\Model\DB\DBManagerArticles;
 
@@ -21,6 +24,9 @@ class EditArticle implements ControllerInterface
 
     public function execute(ServerRequestInterface $request)
     {
+        if(!isset($_SESSION['username']))
+            header('Location: Login');
+
         echo $this->plates -> render('editArticle', [
             'article' => $this->dbma->GetArticle($_GET['title'])
         ]); 
