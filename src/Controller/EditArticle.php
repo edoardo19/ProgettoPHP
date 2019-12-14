@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace SimpleMVC\Controller;
 
+session_start();
+
 use SimpleMVC\Model\DB\DBManagerArticles;
+
 use League\Plates\Engine;
 use Psr\Http\Message\ServerRequestInterface;
 
-class Home implements ControllerInterface
+class EditArticle implements ControllerInterface
 {
     protected $plates;
     protected $dbma;
@@ -21,8 +24,11 @@ class Home implements ControllerInterface
 
     public function execute(ServerRequestInterface $request)
     {
-        echo $this->plates -> render('home', [
-            'articles' => $this->dbma->GetDailyArticles()
-        ]);
+        if(!isset($_SESSION['username']))
+            header('Location: Login');
+
+        echo $this->plates -> render('editArticle', [
+            'article' => $this->dbma->GetArticle($_GET['title'])
+        ]); 
     }
 }

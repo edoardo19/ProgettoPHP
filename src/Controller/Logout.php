@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace SimpleMVC\Controller;
 
-use League\Plates\Engine;
+session_start();
+
 use Psr\Http\Message\ServerRequestInterface;
 
-class Login implements ControllerInterface
+class Logout implements ControllerInterface
 {
     protected $plates;
 
-    public function __construct(Engine $plates)
-    {
-        $this->plates = $plates;
-    }
+    public function __construct(){}
 
     public function execute(ServerRequestInterface $request)
     {
-        echo $this->plates -> render('login');
+        session_unset();
+        session_destroy();
+        header('Location: /');
     }
 }

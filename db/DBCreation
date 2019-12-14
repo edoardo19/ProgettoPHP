@@ -3,7 +3,8 @@ $ sqlite3 Juranl.db
 CREATE TABLE users(
     ID INTEGER PRIMARY KEY AUTOINCREMENT    NOT NULL,
     NAME           TEXT    NOT NULL,
-    PASSWORD       TEXT     NOT NULL
+    PASSWORD       TEXT    NOT NULL,
+    ROLE           TEXT    NOT NULL 
 );
 
 
@@ -17,4 +18,4 @@ CREATE TABLE articles(
    FOREIGN KEY (IDAUTHOR) REFERENCES users(ID)
 );
 
-insert into articles('IDAUTHOR', 'TITLE', 'TITLEFORURL', 'CONTNENT', 'DATEOFSUBMIT') values([ID], [TITLE], [TITLEFORURL],[CONTNENT], [DATE]);
+insert into articles('IDAUTHOR', 'TITLE', 'TITLEFORURL', 'CONTNENT', 'DATEOFSUBMIT') values([ID], [TITLE], [TITLEFORURL], [CONTNENT], [DATE]);
