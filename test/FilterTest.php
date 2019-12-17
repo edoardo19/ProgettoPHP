@@ -26,23 +26,14 @@ class FilterTest extends TestCase
     public function testValidLogin()
     {
         $filter = $this -> container -> get(Filter::Class);
-        $this->assertTrue($filter->IsValidLoginParameters('Leo', '1234'));
+        $this->assertTrue($filter->IsValidLoginParameters('Leo', '1235'));
     }
     public function testInvalidLogin()
     {    
         $filter = $this -> container -> get(Filter::Class);
         $this->assertFalse($filter->IsValidLoginParameters('Leo', '134'));
     }
-    public function testEmptyUsernameByTitle()
-    {    
-        $filter = $this -> container -> get(Filter::Class);
-        $this->assertTrue($filter->IsEmptyUsernameByTitle('Prova'));
-    }
-    public function testNotEmptyUsernameByTitle()
-    {    
-        $filter = $this -> container -> get(Filter::Class);
-        $this->assertFalse($filter->IsEmptyUsernameByTitle('Prov'));
-    }
+   
     public function testGetUserByName()
     {
         $filter = $this -> container -> get(Filter::Class);
@@ -51,20 +42,11 @@ class FilterTest extends TestCase
     public function testNotGetUserByName()
     {
         $filter = $this -> container -> get(Filter::Class);
-        $this->assertFalse($filter->GetUserByName('Edo'));
+        $this->assertFalse($filter->GetUserByName('Pippo'));
     }
 
   /*------TesArticles-------*/
-    public function testGetDailyArticles()
-    {
-        $filter = $this -> container -> get(Filter::Class);
-        $this->assertTrue($filter->GetDailyArticles());
-    }
-    public function testNotGetDailyArticles()
-    {
-        $filter = $this -> container -> get(Filter::Class);
-        $this->assertFalse($filter->GetDailyArticles());
-    }
+  
     public function testGetAllUserArticles()
     {
         $filter = $this -> container -> get(Filter::Class);
@@ -73,6 +55,6 @@ class FilterTest extends TestCase
     public function testNotGetAllUserArticles()
     {
         $filter = $this -> container -> get(Filter::Class);
-        $this->assertFalse($filter->GetAllUserArticles('Edo'));
+        $this->assertFalse($filter->GetAllUserArticles('pippo'));
     }
 }
